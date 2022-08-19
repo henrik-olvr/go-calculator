@@ -1,0 +1,38 @@
+{
+	"builders": [
+	    {
+	    	"type": "docker",
+	    	"image": "golang:1.19",
+	    	"commit": true,
+	    	"changes": [
+	    	    "WORKDIR /src/",
+	    	    "EXPOSE 8080",
+	    	    "ENTRYPOINT go run ."
+	    	]
+	    }
+	],
+	
+	"provisioners": [
+	    {
+	    	"type": "file",
+	    	"source": "./app/",
+	    	"destination": "/src/"
+	    },
+	    {
+	    	"type": "shell",
+	    	"inline": [
+	    	    "cd /src/",
+        	    "go mod init app",
+        	    "go get -d -v .",
+        	    "go build"]
+	    }
+	],
+	
+	"post-processors": [
+	    {
+	    	"type": "docker-tag",
+	    	"repository": "henrikol/calculator",
+	    	"tag": "latest"
+	    }
+	]
+}
