@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage ('Clone Repository') {
+            steps {
+            	git branch: 'master', url: "https://github.com/henrik-olvr/go-calculator.git"
+            }
+        }
+        stage ('Packer Build') {
+            steps {
+            	sh 'packer init .'
+            	sh 'packer build packer-template.json'
+            }
+        }
+    }
+}
