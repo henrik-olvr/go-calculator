@@ -9,7 +9,6 @@ pipeline {
         }
         stage ('Packer Build') {
             steps {
-            	sh 'packer init .'
             	sh 'packer build packer-template.json'
             }
         }
