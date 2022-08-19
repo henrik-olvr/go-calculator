@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy Microservice In Docker') {
+            steps {
+               sh 'docker run -d -p 8081:8080 dev/go-calculator:latest'
+            }
+        }
+    }
+}
